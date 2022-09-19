@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:widget_responsive/src/models/responsive_config.dart';
 
 import 'package:widget_responsive/widget_responsive.dart';
 
