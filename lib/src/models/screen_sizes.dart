@@ -22,4 +22,8 @@ class ScreenSizes {
         small,
         xsmall,
       ];
+
+  @override
+  String toString() =>
+      'xlarge:$xlarge,large:$large,medium:$medium,small:$small,xsmall:$xsmall';
 }
