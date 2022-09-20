@@ -14,3 +14,4 @@ linter:
     - prefer_single_quotes
     - only_throw_errors
     - one_member_abstracts
+    - avoid_final_parameters
