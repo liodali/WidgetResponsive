@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widget_responsive/src/models/responsive_config.dart';
 import 'package:widget_responsive/src/models/screen_sizes.dart';
 
 /// Responsive
@@ -24,10 +25,11 @@ class ScreenResponsive extends StatefulWidget {
   @override
   State<ScreenResponsive> createState() => ScreenResponsiveState();
 
-  static ScreenSizes? of(BuildContext context, {bool nullOk = false}) {
+  static ResponsiveConfiguration? of(BuildContext context,
+      {bool nullOk = false}) {
     final ScreenResponsiveState? result =
         context.findRootAncestorStateOfType<ScreenResponsiveState>();
-    if (nullOk || result != null) return result?.widget.sizes;
+    if (nullOk || result != null) return result?.configuration;
     throw FlutterError.fromParts(<DiagnosticsNode>[
       ErrorSummary(
           'ScreenResponsive.of() called with a context that does not contain an ScreenSizes.'),
@@ -40,9 +42,16 @@ class ScreenResponsive extends StatefulWidget {
 
 class ScreenResponsiveState extends State<ScreenResponsive> {
   late List<Size> sizes;
+
+  late final ResponsiveConfiguration configuration;
   @override
   void initState() {
     super.initState();
+    ResponsiveConfiguration.init(
+      screenSize: MediaQuery.of(context).size,
+      sizes: widget.sizes,
+    );
+    configuration = ResponsiveConfiguration.instance;
   }
 
   @override
