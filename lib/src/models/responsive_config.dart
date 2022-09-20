@@ -54,4 +54,7 @@ class ResponsiveConfiguration {
     });
     return adaptSize.value;
   }
+
+  @override
+  String toString() => 'current screen size : $screenSize,different screens supported : ${sizes.toString()}';
 }
