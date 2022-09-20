@@ -19,7 +19,7 @@ class ResponsiveConfiguration {
   static late final ResponsiveConfiguration instance;
 
   Size _currentScreenSize;
-  ScreenSizes _sizes;
+  late final ScreenSizes _sizes;
 
   Size get screenSize => _currentScreenSize;
   ScreenSizes get sizes => _sizes;
@@ -32,6 +32,10 @@ class ResponsiveConfiguration {
       screenSize: screenSize,
       sizes: sizes,
     );
+  }
+
+  void updateScreenSize(Size screenSize) {
+    _currentScreenSize = screenSize;
   }
 
   int adaptiveValue(
