@@ -12,24 +12,27 @@ enum RSizes {
 
 class ResponsiveConfiguration {
   ResponsiveConfiguration._({
-    required Size screenSize,
+    Size? currentSize,
     required ScreenSizes sizes,
-  })  : _currentScreenSize = screenSize,
-        _sizes = sizes;
+  }) : _sizes = sizes {
+    if (currentSize != null) {
+      _currentScreenSize = currentSize;
+    }
+  }
   static late final ResponsiveConfiguration instance;
 
-  Size _currentScreenSize;
+  late Size _currentScreenSize;
   late final ScreenSizes _sizes;
 
   Size get screenSize => _currentScreenSize;
   ScreenSizes get sizes => _sizes;
 
   static init({
-    required Size screenSize,
+    Size? screenSize,
     required ScreenSizes sizes,
   }) {
     instance = ResponsiveConfiguration._(
-      screenSize: screenSize,
+      currentSize: screenSize,
       sizes: sizes,
     );
   }
@@ -38,23 +41,26 @@ class ResponsiveConfiguration {
     _currentScreenSize = screenSize;
   }
 
-  int adaptiveValue(
-    int value,
-    Map<RSizes, int> values,
+  double adaptiveValue(
+    double value,
+    Map<RSizes, double> values,
   ) {
-    int v = value;
-    final adaptSize = values.entries.firstWhere((element) {
-      final size = _sizes.sizes.firstWhere(
-        (s) =>
-            _currentScreenSize.width >= s.width &&
-            _currentScreenSize.height >= s.height,
-      );
-      final index = _sizes.sizes.indexOf(size);
-      return RSizes.values[index] == element.key;
-    });
+    double v = value;
+    final adaptSize = values.entries.firstWhere(
+      (element) {
+        final size = _sizes.sizes.firstWhere(
+            (s) =>
+                _currentScreenSize.width >= s.width &&
+                _currentScreenSize.height >= s.height,
+            orElse: () => _sizes.sizes.last);
+        final index = _sizes.sizes.indexOf(size);
+        return RSizes.values[index] == element.key;
+      },
+    );
     return adaptSize.value;
   }
 
   @override
-  String toString() => 'current screen size : $screenSize,different screens supported : ${sizes.toString()}';
+  String toString() =>
+      'current screen size : $screenSize \n different screens supported : ${sizes.toString()}';
 }
