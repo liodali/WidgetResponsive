@@ -7,7 +7,7 @@ class ScreenSizes {
   final Size large;
   final Size xlarge;
 
-  ScreenSizes({
+  const ScreenSizes({
     required this.xsmall,
     required this.small,
     required this.medium,
@@ -25,5 +25,5 @@ class ScreenSizes {
 
   @override
   String toString() =>
-      'xlarge:$xlarge,large:$large,medium:$medium,small:$small,xsmall:$xsmall';
+      'xl:$xlarge,l:$large,m:$medium,s:$small,xs:$xsmall';
 }
