@@ -1,11 +1,11 @@
 import 'package:widget_responsive/src/models/responsive_config.dart';
 
-extension ResponsiveDimension on int {
-  int xL({
-    required int large,
-    required int medium,
-    required int small,
-    required int xsmall,
+extension ResponsiveDimension on double {
+  double xL({
+    required double large,
+    required double medium,
+    required double small,
+    required double xsmall,
   }) {
     return ResponsiveConfiguration.instance.adaptiveValue(
       this,
@@ -19,11 +19,11 @@ extension ResponsiveDimension on int {
     );
   }
 
-  int L({
-    required int xlarge,
-    required int medium,
-    required int small,
-    required int xsmall,
+  double L({
+    required double xlarge,
+    required double medium,
+    required double small,
+    required double xsmall,
   }) {
     return ResponsiveConfiguration.instance.adaptiveValue(
       this,
@@ -37,11 +37,11 @@ extension ResponsiveDimension on int {
     );
   }
 
-  int M({
-    required int xlarge,
-    required int large,
-    required int small,
-    required int xsmall,
+  double M({
+    required double xlarge,
+    required double large,
+    required double small,
+    required double xsmall,
   }) {
     return ResponsiveConfiguration.instance.adaptiveValue(
       this,
@@ -55,11 +55,11 @@ extension ResponsiveDimension on int {
     );
   }
 
-  int S({
-    required int xlarge,
-    required int large,
-    required int medium,
-    required int xsmall,
+  double S({
+    required double xlarge,
+    required double large,
+    required double medium,
+    required double xsmall,
   }) {
     return ResponsiveConfiguration.instance.adaptiveValue(
       this,
@@ -73,11 +73,11 @@ extension ResponsiveDimension on int {
     );
   }
 
-  int xS({
-    required int xlarge,
-    required int large,
-    required int medium,
-    required int small,
+  double xS({
+    required double xlarge,
+    required double large,
+    required double medium,
+    required double small,
   }) {
     return ResponsiveConfiguration.instance.adaptiveValue(
       this,
@@ -92,12 +92,12 @@ extension ResponsiveDimension on int {
   }
 }
 
-int custom({
-  required int xlarge,
-  required int large,
-  required int medium,
-  required int small,
-  required int xsmall,
+double custom({
+  required double xlarge,
+  required double large,
+  required double medium,
+  required double small,
+  required double xsmall,
 }) {
   return ResponsiveConfiguration.instance.adaptiveValue(
     medium,
