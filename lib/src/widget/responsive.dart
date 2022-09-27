@@ -23,24 +23,66 @@ class ResponsiveState extends State<Responsive> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     configuration = ScreenResponsive.of(context)!;
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-    configuration.updateScreenSize(MediaQuery.of(context).size);
-  }
+    setState(() {
+      configuration.updateScreenSize(MediaQuery.of(context).size);
+      void rebuild(Element el) {
+        el.markNeedsBuild();
+        el.visitChildren(rebuild);
+      }
 
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (ctx, constraint) {
-      return widget.child;
+      (context as Element).visitChildren(rebuild);
     });
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
+
+  @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties.add(StringProperty("configuration", configuration.toString(),));
+    properties.add(StringProperty(
+      'screen size',
+      configuration.screenSize.toString(),
+    ));
+    properties.add(StringProperty(
+      'xlarge screen size',
+      configuration.sizes.xlarge.toString(),
+    ));
+    properties.add(StringProperty(
+      'large screen size',
+      configuration.sizes.large.toString(),
+    ));
+    properties.add(StringProperty(
+      'medium screen size',
+      configuration.sizes.medium.toString(),
+    ));
+    properties.add(StringProperty(
+      'small screen size',
+      configuration.sizes.small.toString(),
+    ));
+    properties.add(StringProperty(
+      'xsmall screen size',
+      configuration.sizes.xsmall.toString(),
+    ));
+
     super.debugFillProperties(properties);
   }
 }

@@ -48,10 +48,17 @@ class ScreenResponsiveState extends State<ScreenResponsive> {
   void initState() {
     super.initState();
     ResponsiveConfiguration.init(
-      screenSize: MediaQuery.of(context).size,
       sizes: widget.sizes,
     );
     configuration = ResponsiveConfiguration.instance;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    configuration.updateScreenSize(
+      MediaQuery.of(context).size,
+    );
   }
 
   @override

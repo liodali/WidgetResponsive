@@ -53,12 +53,6 @@ class ResponsiveState extends State<ResponsivePositionned>
     super.didChangeMetrics();
     setState(() {
       configuration.updateScreenSize(MediaQuery.of(context).size);
-      context.visitChildElements((element) {
-        element.markNeedsBuild();
-        element.visitChildren((element) {
-          element.markNeedsBuild();
-        });
-      });
     });
   }
 
