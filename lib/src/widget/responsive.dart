@@ -3,47 +3,43 @@ import 'package:flutter/material.dart';
 import 'package:widget_responsive/src/models/responsive_config.dart';
 import 'package:widget_responsive/src/screen_responsive.dart';
 
+typedef ResponsiveBuilder = Widget Function(BuildContext ctx, Widget?);
+
 /// Responsive
 ///
 /// Widget that will make sure the child will be update to the different sizes of the screen
 class Responsive extends StatefulWidget {
-  final Widget child;
+  final Widget? child;
+  final ResponsiveBuilder xlarge;
+  final ResponsiveBuilder large;
+  final ResponsiveBuilder medium;
+  final ResponsiveBuilder small;
+  final ResponsiveBuilder xSmall;
   const Responsive({
     super.key,
-    required this.child,
+    this.child,
+    required this.xlarge,
+    required this.large,
+    required this.medium,
+    required this.small,
+    required this.xSmall,
   });
 
   @override
   State<Responsive> createState() => ResponsiveState();
 }
 
-class ResponsiveState extends State<Responsive> with WidgetsBindingObserver {
+class ResponsiveState extends State<Responsive> {
   late ResponsiveConfiguration configuration;
   @override
   void initState() {
     super.initState();
     configuration = ScreenResponsive.of(context)!;
-    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-    setState(() {
-      configuration.updateScreenSize(MediaQuery.of(context).size);
-      void rebuild(Element el) {
-        el.markNeedsBuild();
-        el.visitChildren(rebuild);
-      }
-
-      (context as Element).visitChildren(rebuild);
-    });
   }
 
   @override
@@ -53,7 +49,9 @@ class ResponsiveState extends State<Responsive> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return widget.xSmall(ctx, widget.child);
+    });
   }
 
   @override
